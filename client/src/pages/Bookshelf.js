@@ -10,38 +10,36 @@ class Bookshelf extends Component {
   loadBookshelf = () => {
     API.getBookshelf()
       .then(res => this.setState({ books: res.data }))
-      .catch(err => console.log(err))
+      .catch(err => console.log(err));
   };
 
   // Method to DELETE a book from the database.
   deleteBook = event => {
     API.deleteBook(event.target.id)
       .then(res => this.loadBookshelf())
-      .catch(err => console.log(err))
+      .catch(err => console.log(err));
   };
 
   // Lifecycle Method - once the Bookshelf Component mounts it runs the 'loadBookshelf' method.
   componentDidMount() {
-    this.loadBookshelf()
+    this.loadBookshelf();
   }
 
   render() {
     return (
-      <div className="container">
+      <div className='container'>
         <Jumbotron
-          title="My Bookshelf"
-          lead="All of Your Saved Books in One Convenient Location."
-          instructions="View your book at Google, or remove it from your Bookshelf..."
-          image="https://i0.wp.com/www.wayfaringviews.com/wp-content/uploads/2016/05/Last_Bookstore.jpg?ssl=1"
+          title='Bookshelf'
+          image='https://images.unsplash.com/photo-1485322551133-3a4c27a9d925?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'
         />
         <BookCard
           books={this.state.books}
           buttonAction={this.deleteBook}
-          buttonType="btn btn-danger mt-2"
-          buttonText="Delete Book"
+          buttonType='btn btn-danger mt-2'
+          buttonText='Delete Book'
         />
       </div>
-    )
+    );
   }
 }
 

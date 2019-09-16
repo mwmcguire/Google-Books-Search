@@ -10,9 +10,9 @@ const App = () => (
     <div>
       <Nav />
       <Switch>
-        <Route exact path="/" component={Search} />
-        <Route exact path="/search" component={Search} />
-        <Route exact path="/bookshelf" component={Bookshelf} />
+        <Route exact path='/' component={Search} />
+        <Route exact path='/search' component={Search} />
+        <Route exact path='/bookshelf' component={Bookshelf} />
         <Route component={NoMatch} />
       </Switch>
     </div>

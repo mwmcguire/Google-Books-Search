@@ -1,6 +1,4 @@
-
 import React, { Component } from 'react';
-import { withAlert } from 'react-alert';
 import API from '../utils/API';
 import Jumbotron from '../components/Jumbotron';
 import SearchForm from '../components/SearchForm';
@@ -12,7 +10,6 @@ const formatBookResults = googleApiResults => {
   const bookArray = [];
 
   googleApiResults.map(book => {
-
     const formattedBook = {
       title: book.volumeInfo.title,
       authors: book.volumeInfo.authors
@@ -32,7 +29,7 @@ const formatBookResults = googleApiResults => {
     };
 
     bookArray.push(formattedBook);
-    return bookArray
+    return bookArray;
   });
   return bookArray;
 };
@@ -46,8 +43,9 @@ class Search extends Component {
 
   // Method for saving a particular book to the database.
   saveBook = event => {
-
-    const chosenBook = this.state.results.find(book => book.googleBookId === event.target.id);
+    const chosenBook = this.state.results.find(
+      book => book.googleBookId === event.target.id
+    );
 
     const newSave = {
       title: chosenBook.title,
@@ -64,20 +62,15 @@ class Search extends Component {
     API.saveBook(newSave)
       .then(res => {
         console.log(res.status, res.statusText);
-        this.props.alert.show('Book Saved!', { type: 'success' })
       })
       .catch(err => {
         console.log(err);
-        this.props.alert.show('Sorry, There was an issue with something back here...', {
-          type: 'error',
-          timeout: 5000
-        })
-      })
+      });
   };
 
   // Method handling the change of the input field.
   handleInputChange = event => {
-    this.setState({ search: event.target.value })
+    this.setState({ search: event.target.value });
   };
 
   // Method handling the submission of the Search form, makes a call to retrieve the results of the search
@@ -90,18 +83,16 @@ class Search extends Component {
         const formattedArray = formatBookResults(res.data.items);
         this.setState({ results: formattedArray });
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log(err));
   };
 
   render() {
     return (
-      <div className="container">
-
+      <div className='container'>
         <Jumbotron
-          title="Search"
-          lead="Using Google Books API"
-          instructions="Search for a book; then view it on Google Books, or add it to your Bookshelf..."
-          image="https://www.travelcaffeine.com/wp-content/uploads/2017/07/last-bookstore-tunnel-downtown-los-angeles-california-876.jpg"
+          title='Google Books Search'
+          heading='Search Google Books API'
+          image='https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1682&q=80'
         />
         <SearchForm
           handleInputChange={this.handleInputChange}
@@ -110,8 +101,8 @@ class Search extends Component {
         <BookCard
           books={this.state.results}
           buttonAction={this.saveBook}
-          buttonType="btn btn-success mt-2"
-          buttonText="Save Book"
+          buttonType='btn btn-success mt-2'
+          buttonText='Save Book'
         />
       </div>
     );
@@ -119,4 +110,4 @@ class Search extends Component {
 }
 
 // Exporting Component Utilizing the Alerts.
-export default withAlert(Search);
+export default Search;
